@@ -14,3 +14,17 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('member/posts', 'Member\\PostsController');
+
+
+// Users route
+
+Route::get('/home', ['uses' => 'UserController@getHome']);
+Route::controller('/user', 'Auth\AuthController');
+Route::controller('/password', 'Auth\PasswordController');
+ 
+// Admin route
+Route::get('/admin/home', ['uses' => 'AdminController@getHome']);
+Route::controller('/admin', 'Auth\AdminAuthController');
+Route::controller('/admin/password', 'Auth\AdminPasswordController');

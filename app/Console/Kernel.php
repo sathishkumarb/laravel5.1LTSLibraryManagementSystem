@@ -27,4 +27,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('inspire')
                  ->hourly();
     }
+
+    protected $routeMiddleware = [
+    'admin'       => \App\Http\Middleware\AdminAuthenicate::class,
+    'admin.guest' => \App\Http\Middleware\AdminGuest::class
+    ];
 }
