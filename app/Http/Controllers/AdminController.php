@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
 
 class AdminController extends Controller
 {
@@ -17,6 +18,16 @@ class AdminController extends Controller
     public function index()
     {
         //
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getHome()
+    {
+       return Redirect::to('member/books'); // redirect the user to the login screen
     }
 
     /**
