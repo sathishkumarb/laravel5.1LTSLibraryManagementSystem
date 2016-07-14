@@ -3,17 +3,17 @@
 @section('content')
 <div class="container">
 
-    <h1>Post {{ $post->id }}
-        <a href="{{ url('member/posts/' . $post->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit Post"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+    <h1>Book {{ $book->id }}
+        <a href="{{ url('member/books/' . $book->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit book"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
         {!! Form::open([
             'method'=>'DELETE',
-            'url' => ['member/posts', $post->id],
+            'url' => ['member/books', $book->id],
             'style' => 'display:inline'
         ]) !!}
             {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true"/>', array(
                     'type' => 'submit',
                     'class' => 'btn btn-danger btn-xs',
-                    'title' => 'Delete Post',
+                    'title' => 'Delete book',
                     'onclick'=>'return confirm("Confirm delete?")'
             ));!!}
         {!! Form::close() !!}
@@ -22,9 +22,9 @@
         <table class="table table-bordered table-striped table-hover">
             <tbody>
                 <tr>
-                    <th>ID</th><td>{{ $post->id }}</td>
+                    <th>ID</th><td>{{ $book->id }}</td>
                 </tr>
-                <tr><th> Title </th><td> {{ $post->title }} </td></tr><tr><th> Author </th><td> {{ $post->author }} </td></tr><tr><th> Isbn </th><td> {{ $post->isbn }} </td></tr>
+                <tr><th> Title </th><td> {{ $book->title }} </td></tr><tr><th> Author </th><td> {{ $book->author }} </td></tr><tr><th> Isbn </th><td> {{ $book->isbn }} </td></tr>
             </tbody>
         </table>
     </div>

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-    <h1>Posts <a href="{{ url('/member/posts/create') }}" class="btn btn-primary btn-xs" title="Add New Post"><span class="glyphicon glyphicon-plus" aria-hidden="true"/></a></h1>
+    <h1>books <a href="{{ url('/member/books/create') }}" class="btn btn-primary btn-xs" title="Add New Post"><span class="glyphicon glyphicon-plus" aria-hidden="true"/></a></h1>
     <div class="table">
         <table class="table table-bordered table-striped table-hover">
             <thead>
@@ -13,17 +13,17 @@
             </thead>
             <tbody>
             {{-- */$x=0;/* --}}
-            @foreach($posts as $item)
+            @foreach($books as $item)
                 {{-- */$x++;/* --}}
                 <tr>
                     <td>{{ $x }}</td>
                     <td>{{ $item->title }}</td><td>{{ $item->author }}</td><td>{{ $item->isbn }}</td>
                     <td>
-                        <a href="{{ url('/member/posts/' . $item->id) }}" class="btn btn-success btn-xs" title="View Post"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
-                        <a href="{{ url('/member/posts/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit Post"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('/member/books/' . $item->id) }}" class="btn btn-success btn-xs" title="View Post"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
+                        <a href="{{ url('/member/books/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit Post"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
-                            'url' => ['/member/posts', $item->id],
+                            'url' => ['/member/books', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
                             {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true" title="Delete Post" />', array(
@@ -38,7 +38,7 @@
             @endforeach
             </tbody>
         </table>
-        <div class="pagination-wrapper"> {!! $posts->render() !!} </div>
+        <div class="pagination-wrapper"> {!! $books->render() !!} </div>
     </div>
 
 </div>

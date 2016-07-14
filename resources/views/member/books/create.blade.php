@@ -3,13 +3,10 @@
 @section('content')
 <div class="container">
 
-    <h1>Edit Post {{ $post->id }}</h1>
+    <h1>Create New Book</h1>
+    <hr/>
 
-    {!! Form::model($post, [
-        'method' => 'PATCH',
-        'url' => ['/member/posts', $post->id],
-        'class' => 'form-horizontal'
-    ]) !!}
+    {!! Form::open(['url' => '/member/books', 'class' => 'form-horizontal']) !!}
 
                 <div class="form-group {{ $errors->has('title') ? 'has-error' : ''}}">
                 {!! Form::label('title', 'Title', ['class' => 'col-sm-3 control-label']) !!}
@@ -43,7 +40,7 @@
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
-            {!! Form::submit('Update', ['class' => 'btn btn-primary form-control']) !!}
+            {!! Form::submit('Create', ['class' => 'btn btn-primary form-control']) !!}
         </div>
     </div>
     {!! Form::close() !!}

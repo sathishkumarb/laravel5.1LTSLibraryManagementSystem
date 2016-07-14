@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Book extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'posts';
+    protected $table = 'books';
 
     /**
     * The database primary key value.

@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('member/posts', 'Member\\PostsController');
+Route::resource('member/books', 'Member\\BooksController');
 
 
 // Users route
@@ -28,3 +28,23 @@ Route::controller('/password', 'Auth\PasswordController');
 Route::get('/admin/home', ['uses' => 'AdminController@getHome']);
 Route::controller('/admin', 'Auth\AdminAuthController');
 Route::controller('/admin/password', 'Auth\AdminPasswordController');
+
+
+// Authentication routes...
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+// Registration routes...
+//Route::get('auth/register', 'Auth\AuthController@getRegister');
+//Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+
+// Authentication routes...
+Route::get('adminauth/login', 'Auth\AdminAuthController@getLogin');
+Route::post('adminauth/login', 'Auth\AdminAuthController@postLogin');
+Route::get('adminauth/logout', 'Auth\AdminAuthController@getLogout');
+
+// Registration routes...
+Route::get('adminauth/register', 'Auth\AdminAuthController@getRegister');
+Route::post('adminauth/register', 'Auth\AdminAuthController@postRegister');

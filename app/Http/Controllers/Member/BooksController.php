@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Member;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Post;
+use App\Book;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
 
-class PostsController extends Controller
+class BooksController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +19,9 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(15);
+        $books = Book::paginate(15);
 
-        return view('member.posts.index', compact('posts'));
+        return view('member.books.index', compact('books'));
     }
 
     /**
@@ -31,7 +31,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('member.posts.create');
+        return view('member.books.create');
     }
 
     /**
@@ -43,11 +43,11 @@ class PostsController extends Controller
     {
         $this->validate($request, ['title' => 'required', 'author' => 'required', 'isbn' => 'required', 'shelflocation' => 'required', ]);
 
-        Post::create($request->all());
+        Book::create($request->all());
 
-        Session::flash('flash_message', 'Post added!');
+        Session::flash('flash_message', 'Book added!');
 
-        return redirect('member/posts');
+        return redirect('member/books');
     }
 
     /**
@@ -59,9 +59,9 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = Post::findOrFail($id);
+        $Book = Book::findOrFail($id);
 
-        return view('member.posts.show', compact('post'));
+        return view('member.books.show', compact('Book'));
     }
 
     /**
@@ -73,9 +73,9 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::findOrFail($id);
+        $Book = Book::findOrFail($id);
 
-        return view('member.posts.edit', compact('post'));
+        return view('member.books.edit', compact('Book'));
     }
 
     /**
@@ -89,12 +89,12 @@ class PostsController extends Controller
     {
         $this->validate($request, ['title' => 'required', 'author' => 'required', 'isbn' => 'required', 'shelflocation' => 'required', ]);
 
-        $post = Post::findOrFail($id);
-        $post->update($request->all());
+        $Book = Book::findOrFail($id);
+        $Book->update($request->all());
 
-        Session::flash('flash_message', 'Post updated!');
+        Session::flash('flash_message', 'Book updated!');
 
-        return redirect('member/posts');
+        return redirect('member/books');
     }
 
     /**
@@ -106,10 +106,10 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        Post::destroy($id);
+        Book::destroy($id);
 
-        Session::flash('flash_message', 'Post deleted!');
+        Session::flash('flash_message', 'Book deleted!');
 
-        return redirect('member/posts');
+        return redirect('member/books');
     }
 }
