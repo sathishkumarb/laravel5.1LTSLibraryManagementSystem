@@ -112,4 +112,12 @@ class BooksController extends Controller
 
         return redirect('member/books');
     }
+	
+	public function searchbook(Request $request){
+		$name = $request->input('search');
+
+		$books = Book::searchbook($name);		 
+		
+		return view('member.books.search')->with('books', $books);                 
+	}
 }

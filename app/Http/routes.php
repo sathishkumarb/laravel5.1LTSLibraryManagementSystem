@@ -16,6 +16,8 @@ Route::get('/', function () {
 });
 
 Route::resource('member/books', 'Member\\BooksController');
+Route::resource('member/booksearch', 'Member\\BooksController@searchbook');
+Route::resource('member/bookaction', 'Member\\BooksController@bookaction');
 Route::resource('users', 'UserController');
 
 
@@ -39,7 +41,6 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 // Registration routes...
 //Route::get('auth/register', 'Auth\AuthController@getRegister');
 //Route::post('auth/register', 'Auth\AuthController@postRegister');
-
 
 // Authentication routes...
 Route::get('adminauth/login', 'Auth\AdminAuthController@getLogin');

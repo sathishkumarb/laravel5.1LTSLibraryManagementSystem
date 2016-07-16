@@ -2,6 +2,8 @@
 
 namespace App;
 
+use DB;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
@@ -26,4 +28,13 @@ class Book extends Model
      * @var array
      */
     protected $fillable = ['title', 'author', 'isbn', 'shelflocation'];
+	
+	protected function searchbook($keyword){
+		$books = DB::table('books')
+                     ->select(DB::raw('count(*) as book_count, id, title, author'))
+                     ->where("title", "LIKE","%$keyword%")
+                     ->orWhere("author", "LIKE", "%$keyword%")
+					 ->get();
+		return $books;
+	}
 }
