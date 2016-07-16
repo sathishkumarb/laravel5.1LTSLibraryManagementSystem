@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::resource('member/books', 'Member\\BooksController');
+Route::resource('users', 'UserController');
 
 
 // Users route

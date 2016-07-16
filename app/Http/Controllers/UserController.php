@@ -7,9 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use User;
+use App\User;
 
-use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
 
@@ -22,9 +21,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $books = Book::paginate(15);
+        $users = User::paginate(15);
 
-        return view('users.index', compact('users'));
+        return view('user.index', compact('users'));
     }
 
     /**
@@ -34,7 +33,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        return view('user.create');
     }
 
     /**
@@ -44,9 +43,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['name' => 'required', 'email' => 'required', 'password' => 'required', 'password_confirmation' => 'required', ]);
+        $this->validate($request, ['name' => 'required', 'email' => 'required', 'password' => 'required', ]);
 
-        Book::create($request->all());
+		$hashedpassword = \Hash::make($request->password);
+		$request->merge([ 'password' => $hashedpassword ]);
+		
+        User::create($request->all());
 
         Session::flash('flash_message', 'User added!');
 
@@ -62,9 +64,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $Book = Book::findOrFail($id);
+        $User = User::findOrFail($id);
 
-        return view('users.show', compact('User'));
+        return view('user.show', compact('User'));
     }
 
     /**
@@ -76,9 +78,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $Book = Book::findOrFail($id);
+        $User = User::findOrFail($id);
 
-        return view('users.edit', compact('User'));
+        return view('user.edit', compact('User'));
     }
 
     /**
@@ -92,12 +94,12 @@ class UserController extends Controller
     {
         $this->validate($request, ['name' => 'required', 'email' => 'required', 'password' => 'required', 'password_confirmation' => 'required', ]);
 
-        $Book = Book::findOrFail($id);
-        $Book->update($request->all());
+        $User = User::findOrFail($id);
+        $User->update($request->all());
 
         Session::flash('flash_message', 'User updated!');
 
-        return redirect('users');
+        return redirect('user');
     }
 
     /**
@@ -109,10 +111,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        Book::destroy($id);
+        User::destroy($id);
 
         Session::flash('flash_message', 'user deleted!');
 
-        return redirect('users');
+        return redirect('user');
     }
 }
