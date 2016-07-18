@@ -8,7 +8,7 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> Title </th><th> Author </th><th> Isbn </th><th>Actions</th>
+                    <th>S.No</th><th> Title </th><th> Author </th><th> Isbn </th><th> Quantities </th><th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,7 +17,7 @@
                 {{-- */$x++;/* --}}
                 <tr>
                     <td>{{ $x }}</td>
-                    <td>{{ $item->title }}</td><td>{{ $item->author }}</td><td>{{ $item->isbn }}</td>
+                    <td>{{ $item->title }}</td><td>{{ $item->author }}</td><td>{{ $item->isbn }}</td><td>{{ $item->quantities }}</td>
                     <td>
                         <a href="{{ url('/member/books/' . $item->id) }}" class="btn btn-success btn-xs" title="View Post"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
                         <a href="{{ url('/member/books/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit Post"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>

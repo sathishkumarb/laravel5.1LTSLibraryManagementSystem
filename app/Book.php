@@ -27,11 +27,11 @@ class Book extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'author', 'isbn', 'shelflocation'];
+    protected $fillable = ['title', 'author', 'isbn', 'quantities', 'shelflocation'];
 	
 	protected function searchbook($keyword){
 		$books = DB::table('books')
-                     ->select(DB::raw('count(*) as book_count, id, title, author'))
+                     ->select(DB::raw('count(*) as book_count, id, title, quantities, author'))
                      ->where("title", "LIKE","%$keyword%")
                      ->orWhere("author", "LIKE", "%$keyword%")
 					 ->get();

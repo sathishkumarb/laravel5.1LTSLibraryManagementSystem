@@ -24,7 +24,7 @@
                 <tr>
                     <th>ID</th><td>{{ $book->id }}</td>
                 </tr>
-                <tr><th> Title </th><td> {{ $book->title }} </td></tr><tr><th> Author </th><td> {{ $book->author }} </td></tr><tr><th> Isbn </th><td> {{ $book->isbn }} </td></tr>
+                <tr><th> Title </th><td> {{ $book->title }} </td></tr><tr><th> Author </th><td> {{ $book->author }} </td></tr><tr><th> Isbn </th><td> {{ $book->isbn }} </td><td> {{ $book->quantities }} </td></tr>
             </tbody>
         </table>
     </div>

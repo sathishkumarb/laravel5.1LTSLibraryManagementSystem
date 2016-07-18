@@ -25,7 +25,9 @@
 					<div class="clearfix"></div>
 					<div>Author: {{$result->author}} </div> 
 					<div class="clearfix"></div>
-					
+					<div class="clearfix"></div>
+					<div>Quantities: {{$result->quantities}} </div> 
+					<div class="clearfix"></div>
 					
 				</div>
 				@endforeach
