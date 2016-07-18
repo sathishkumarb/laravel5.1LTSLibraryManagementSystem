@@ -17,9 +17,9 @@ class CreateBooksLendTable extends Migration
             $table->increments('id');
             $table->integer('bookid');
             $table->integer('userid');
-            $table->date('startdate');
-            $table->date('returndate');
-            $table->timestamps();
+            $table->datetime('startdate');
+            $table->datetime('returndate');
+            //$table->timestamps();
         });
     }
 

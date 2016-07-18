@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
 use Auth;
+use DateTime;
+
+
 
 class BooksController extends Controller
 {
@@ -139,27 +142,64 @@ class BooksController extends Controller
 
         $Book = Book::findOrFail($id);
 
-        echo $request->input('quantities');
-    
+
         if ( isset($Book->id) && $Book->quantities > 0) {
+           
+            $bookscount =  Book::searchbookbyid($id);
+  
+            if ($bookscount === $Book->quantities){
 
-            return view('member.books.borrowbook',compact('Book'));
+                echo "No stock(s) available";
+                exit;
 
+            }
+            
+        } 
+
+        if (isset($request) && !empty($request->input('returndate')))
+        {
+
+            $userbooks = Book::searchbookslendedbyuser($user->id);
+
+            if ( $user->age <=12 && $userbooks[0]->books_count <=2)
+            {
+
+                $now = new DateTime();
+               
+                $request->merge([ 'bookid' => $id ]);
+                $request->merge([ 'userid' => $user->id ]);
+                $request->merge([ 'startdate' => $now ]);
+
+                BookLend::create($request->all());
+
+                Session::flash('flash_message', 'Book Borrowed!');
+
+                return redirect('member/booksearch');
+            } 
+            else if( $user->age > 12 && $userbooks[0]->books_count <=5)
+            {
+                $now = new DateTime();
+               
+                $request->merge([ 'bookid' => $id ]);
+                $request->merge([ 'userid' => $user->id ]);
+                $request->merge([ 'startdate' => $now ]);
+
+                BookLend::create($request->all());
+
+                Session::flash('flash_message', 'Book Borrowed!');
+
+                return redirect('member/booksearch');
+            } 
+            else
+            {
+                echo "Maximum boosk allowed is 6 for elders and 3 for juniors";
+                exit;
+            }
+            
         }
-
-
-        if ($request->input('quantities') && $request->input('returndate')) {
-            $request->bookid = $id;
-            $request->userid = $user->id;
-
-            BookLend::create($request->all());
-
-            Session::flash('flash_message', 'Book added!');
-
-            return redirect('member/books');
-        }
-
-        //return view('member.books.edit', compact('Book'));
+      
+               
+        return view('member.books.borrowbook',compact('Book'));
 
     }
 }

@@ -37,4 +37,17 @@ class Book extends Model
 					 ->get();
 		return $books;
 	}
+
+    protected function searchbookbyid($bookid){
+        $books = DB::table('books_lend')->where('bookid', '=', $bookid)->groupBy('bookid')->count();
+        return $books;
+    }
+
+    protected function searchbookslendedbyuser($id){
+        $books = DB::table('books_lend')
+                     ->select(DB::raw('count(*) as books_count'))
+                     ->where('userid', '=', $id)
+                     ->get();
+        return $books;
+    }
 }

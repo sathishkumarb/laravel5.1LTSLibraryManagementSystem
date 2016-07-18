@@ -27,6 +27,6 @@ class BookLend extends Model
      *
      * @var array
      */
-    protected $fillable = ['bookid','userid', 'startdate', 'returndate', 'quantities'];
+    protected $fillable = ['bookid', 'userid', 'startdate', 'returndate'];
 	
 }
