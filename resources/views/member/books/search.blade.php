@@ -24,10 +24,15 @@
 					
 					<div class="clearfix"></div>
 					<div>Author: {{$result->author}} </div> 
-					<div class="clearfix"></div>
+					
 					<div class="clearfix"></div>
 					<div>Quantities: {{$result->quantities}} </div> 
 					<div class="clearfix"></div>
+
+					<div>Borrow: <a href="{{ url('/member/bookborrow/' . $result->id) }}" class="btn btn-primary btn-xs" title="Edit Post"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/> {{$result->id}}</a> </div> 
+					<div class="clearfix"></div>
+
+					
 					
 				</div>
 				@endforeach

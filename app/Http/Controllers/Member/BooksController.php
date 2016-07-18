@@ -6,9 +6,13 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Book;
+use App\BookLend;
+
 use Illuminate\Http\Request;
+
 use Carbon\Carbon;
 use Session;
+use Auth;
 
 class BooksController extends Controller
 {
@@ -59,9 +63,9 @@ class BooksController extends Controller
      */
     public function show($id)
     {
-        $Book = Book::findOrFail($id);
+        $book = Book::findOrFail($id);
 
-        return view('member.books.show', compact('Book'));
+        return view('member.books.show', compact('book'));
     }
 
     /**
@@ -112,7 +116,15 @@ class BooksController extends Controller
 
         return redirect('member/books');
     }
-	
+
+
+    /**
+     * Search the book bon on keyword.
+     *
+     * @param  request  $request
+     *
+     * @return void
+     */
 	public function searchbook(Request $request){
 		$name = $request->input('search');
 
@@ -120,4 +132,34 @@ class BooksController extends Controller
 		
 		return view('member.books.search')->with('books', $books);                 
 	}
+
+    public function bookborrow(Request $request, $id){
+
+        $user = Auth::user();
+
+        $Book = Book::findOrFail($id);
+
+        echo $request->input('quantities');
+    
+        if ( isset($Book->id) && $Book->quantities > 0) {
+
+            return view('member.books.borrowbook',compact('Book'));
+
+        }
+
+
+        if ($request->input('quantities') && $request->input('returndate')) {
+            $request->bookid = $id;
+            $request->userid = $user->id;
+
+            BookLend::create($request->all());
+
+            Session::flash('flash_message', 'Book added!');
+
+            return redirect('member/books');
+        }
+
+        //return view('member.books.edit', compact('Book'));
+
+    }
 }
