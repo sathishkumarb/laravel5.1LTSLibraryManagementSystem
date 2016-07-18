@@ -120,6 +120,22 @@ class BooksController extends Controller
         return redirect('member/books');
     }
 
+    /**
+     * Search the book bon on keyword.
+     *
+     * @param  request  $request
+     *
+     * @return void
+     */
+    public function listborrowbook(){
+
+        $user = Auth::user();
+
+        $books = BookLend::join('books', 'books_lend.bookid', '=', 'books.id')->where('userid', '=', $user->id)->select('books_lend.*', 'books.title', 'books.author')->get(); 
+
+        return view('member.books.listborrowbook')->with('books', $books);                 
+    }
+
 
     /**
      * Search the book bon on keyword.
@@ -132,7 +148,7 @@ class BooksController extends Controller
 		$name = $request->input('search');
 
 		$books = Book::searchbook($name);		 
-		
+
 		return view('member.books.search')->with('books', $books);                 
 	}
 
