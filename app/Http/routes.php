@@ -32,7 +32,6 @@ Route::get('/admin/home', ['uses' => 'AdminController@getHome']);
 Route::controller('/admin', 'Auth\AdminAuthController');
 Route::controller('/admin/password', 'Auth\AdminPasswordController');
 
-
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');

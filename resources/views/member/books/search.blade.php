@@ -1,4 +1,4 @@
-{!! Form::open(['method'=>'GET','url'=>'member/bookssearch','class'=>'navbar-form navbar-left','role'=>'search'])  !!}
+{!! Form::open(['method'=>'GET','url'=>'member/booksearch','class'=>'navbar-form navbar-left','role'=>'search'])  !!}
 <div class="input-group custom-search-form">
     <input type="text" class="form-control" name="search" placeholder="Search...">
     <span class="input-group-btn">
