@@ -1,16 +1,19 @@
+@extends('layouts.app')
+
+@section('content')
 {!! Form::open(['method'=>'GET','url'=>'member/booksearch','class'=>'navbar-form navbar-left','role'=>'search'])  !!}
 <div class="input-group custom-search-form">
     <input type="text" class="form-control" name="search" placeholder="Search...">
     <span class="input-group-btn">
         <button class="btn btn-default-sm" type="submit">
-            <i class="fa fa-search"><!--<span class="hiddenGrammarError" pre="" data-mce-bogus="1"-->i>
+            <i class="fa fa-search">
         </button>
     </span>
 </div>
 
 <div class="container">
 	<div class="row">
-		<div style="width:400px" class="pull-right">
+		<div style="width:400px">
 	
 		<div class="clearfix"></div>
 		<div class="col-md-12">
@@ -29,9 +32,8 @@
 					<div>Quantities: {{$result->quantities}} </div> 
 					<div class="clearfix"></div>
 
-					<div>Borrow: <a href="{{ url('/member/bookborrow/' . $result->id) }}" class="btn btn-primary btn-xs" title="Edit Post"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/> {{$result->id}}</a> </div> 
+					<div>Borrow: <a href="{{ url('/member/bookborrow/' . $result->id) }}" class="btn btn-primary btn-xs" title="Borrow Book"> {{$result->id}}</a> </div> 
 					<div class="clearfix"></div>
-
 					
 					
 				</div>
@@ -45,4 +47,5 @@
 
 <div class="clearfix"></div>
 {!! Form::close() !!}
+@endsection
 

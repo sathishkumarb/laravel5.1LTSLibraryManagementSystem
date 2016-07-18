@@ -31,7 +31,7 @@ class Book extends Model
 	
 	protected function searchbook($keyword){
 		$books = DB::table('books')
-                     ->select(DB::raw('count(*) as book_count, id, title, quantities, author'))
+                     ->select(DB::raw('id, title, quantities, author'))
                      ->where("title", "LIKE","%$keyword%")
                      ->orWhere("author", "LIKE", "%$keyword%")
 					 ->get();
