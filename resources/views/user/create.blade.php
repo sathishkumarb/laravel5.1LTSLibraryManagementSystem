@@ -22,6 +22,13 @@
                     {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
+             <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
+                {!! Form::label('age', 'age', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::text('age', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    {!! $errors->first('age', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
             <div class="form-group {{ $errors->has('isbn') ? 'has-error' : ''}}">
                 {!! Form::label('password', 'password', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">

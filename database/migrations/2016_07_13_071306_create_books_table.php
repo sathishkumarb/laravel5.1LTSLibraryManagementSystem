@@ -17,6 +17,7 @@ class CreateBooksTable extends Migration
             $table->string('title');
             $table->string('author');
             $table->text('isbn');
+            $table->smallInteger('quantities');
             $table->string('shelflocation');
             $table->timestamps();
         });

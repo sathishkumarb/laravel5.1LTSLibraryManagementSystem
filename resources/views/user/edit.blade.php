@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
 
-    <h1>Edit User {{ $post->id }}</h1>
+    <h1>Edit User {{ $User->id }}</h1>
 
-    {!! Form::model($post, [
+    {!! Form::model($User, [
         'method' => 'PATCH',
-        'url' => ['/users', $post->id],
+        'url' => ['/users', $User->id],
         'class' => 'form-horizontal'
     ]) !!}
 
@@ -23,6 +23,13 @@
                 <div class="col-sm-6">
                     {!! Form::text('email', null, ['class' => 'form-control', 'required' => 'required']) !!}
                     {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
+            <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
+                {!! Form::label('age', 'Age', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::text('age', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    {!! $errors->first('age', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('password') ? 'has-error' : ''}}">

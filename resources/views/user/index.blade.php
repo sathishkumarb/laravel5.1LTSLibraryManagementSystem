@@ -8,7 +8,7 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> Name </th><th> Email </th><th>Actions</th>
+                    <th>S.No</th><th> Name </th><th> Email </th><th> Age </th><th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,7 +17,7 @@
                 {{-- */$x++;/* --}}
                 <tr>
                     <td>{{ $x }}</td>
-                    <td>{{ $item->name }}</td><td>{{ $item->email }}</td></td>
+                    <td>{{ $item->name }}</td><td>{{ $item->email }}</td><td>{{ $item->age }}</td>
                     <td>
                         <a href="{{ url('/users/' . $item->id) }}" class="btn btn-success btn-xs" title="View User"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
                         <a href="{{ url('/users/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit User"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>

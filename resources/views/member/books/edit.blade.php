@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
 
-    <h1>Edit Book {{ $post->id }}</h1>
+    <h1>Edit Book {{ $Book->id }}</h1>
 
-    {!! Form::model($post, [
+    {!! Form::model($Book, [
         'method' => 'PATCH',
-        'url' => ['/member/books', $post->id],
+        'url' => ['/member/books', $Book->id],
         'class' => 'form-horizontal'
     ]) !!}
 
