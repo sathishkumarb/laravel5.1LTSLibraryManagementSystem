@@ -1,33 +1,47 @@
-@extends('baselayout')
+@extends('layouts.public')
 
 @section('content')
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+      <h2>Please sign in</h2>
 
-<div class="row">
-<form method="POST" action="{{ action("Auth\AdminAuthController@getLogin") }}">
-    {!! csrf_field() !!}
-    
-<h2>Sign In</h2>
-    {!! HTML::ul($errors->all(), array('class'=>'errors')) !!}
+      <form method="post" action="{{ url('/adminauth/login') }}">
+        {!! csrf_field() !!}
 
-    {!! Form::open(array('url' => 'signin','class'=>'form-inline')) !!}
+        <div class="form-group">
+          <label for="exampleInputEmail1">E-mail address</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="E-mail" name="email" value="{{ old('email') }}" required>
+        </div>
 
-    {!! Form::label('email', 'E-Mail Address') !!}
-    {!! Form::text('email', 'example@gmail .com', array('class' => 'form-control')) !!}
-    {!! Form::label('password', 'Password') !!}
-    {!! Form::password('password', array('class' => 'form-control')) !!}
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password" required>
+        </div>
 
-    {!! Form::submit('Sign In' , array('class' => 'btn btn-primary')) !!}
-    {!! Form::close() !!}
-    
-</form>
-</div>
-@if (count($errors) > 0)
-    <div class="alert alert-danger">
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-        <ul>
-            @foreach ($errors->all() as $error)
+        <div class="checkbox">
+            <label>
+              <input type="checkbox" name="remember"> Remember me
+            </label>
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </div>
+
+        @if (count($errors) > 0)
+          <div class="alert alert-danger">
+            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <ul>
+              @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+              @endforeach
+            </ul>
+          </div>
+        @endif
+
+      </form>
     </div>
-@endif
+  </div>
+</div>
+@endsection
