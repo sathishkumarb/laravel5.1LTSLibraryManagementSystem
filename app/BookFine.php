@@ -6,14 +6,14 @@ use DB;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BookLend extends Model
+class BookFine extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'books_lend';
+    protected $table = 'books_fines';
 
     /**
     * The database primary key value.
@@ -27,6 +27,6 @@ class BookLend extends Model
      *
      * @var array
      */
-    protected $fillable = ['bookid', 'userid', 'startdate'];
+    protected $fillable = ['bookid', 'userid', 'returndate', 'fines'];
 	
 }
