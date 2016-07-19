@@ -12,7 +12,7 @@ class AdminAuthController extends Controller
 {
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
-    protected $redirectPath = 'member/booksearch';
+    protected $redirectPath = 'member/books';
 
     protected $loginPath = 'admin/login';
 

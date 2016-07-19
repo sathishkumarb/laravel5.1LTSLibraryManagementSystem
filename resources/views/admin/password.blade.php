@@ -1,4 +1,4 @@
-<form method="POST" action="{{ action("Auth\AdminPasswordController@getEmail") }}">
+<form method="POST" action="{{ action("AdminAuth\AdminPasswordController@getEmail") }}">
     {!! csrf_field() !!}
  
     <div>

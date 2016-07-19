@@ -3,9 +3,26 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Contracts\Auth\Guard;
 
 class AdminGuest
 {
+    /**
+     * The Guard implementation.
+     *
+     * @var Guard
+     */
+    protected $auth;
+    /**
+     * Create a new filter instance.
+     *
+     * @param  Guard  $auth
+     * @return void
+     */
+    public function __construct(Guard $auth)
+    {
+        $this->auth = $auth->with('admin');
+    }
     /**
      * Handle an incoming request.
      *
@@ -15,9 +32,10 @@ class AdminGuest
      */
     public function handle($request, Closure $next)
     {
-         if (\Auth::check('admin')) {
+        if ($this->auth->check('admin')) {
             return redirect('/admin/home');
         }
+ 
         return $next($request);
     }
 }
