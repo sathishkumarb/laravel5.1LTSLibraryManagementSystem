@@ -11,6 +11,12 @@ use Sarav\Multiauth\Foundation\AuthenticatesAndRegistersUsers;
 class AdminAuthController extends Controller
 {
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+
+    protected $redirectPath = 'member/booksearch';
+
+    protected $loginPath = 'admin/login';
+
+    protected $redirectAfterLogout = 'admin/login';
  
     /**
      * Create a new authentication controller instance.

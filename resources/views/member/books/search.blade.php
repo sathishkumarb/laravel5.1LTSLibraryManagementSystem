@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.userapp')
 
 @section('content')
 {!! Form::open(['method'=>'GET','url'=>'member/booksearch','class'=>'navbar-form navbar-left','role'=>'search'])  !!}
@@ -32,7 +32,7 @@
 					<div>Quantities: {{$result->quantities}} </div> 
 					<div class="clearfix"></div>
 
-					<div>Borrow: <a href="{{ url('/member/bookborrow/' . $result->id) }}" class="btn btn-primary btn-xs" title="Borrow Book"> {{$result->id}}</a> </div> 
+					<div>Borrow: <a href="{{ url('/member/bookborrow/' . $result->id) }}" class="btn btn-primary btn-xs" title="Borrow Book"> Borrow Book</a> </div> 
 					<div class="clearfix"></div>
 					
 					

@@ -132,9 +132,9 @@ class BooksController extends Controller
     {
         //$books = array();
 
-        if (Auth::$user)
+        if (Auth::check())
         {
-            //$user = Auth::user();
+            $user = Auth::user();
             $books = BookLend::join('books', 'books_lend.bookid', '=', 'books.id')->where('userid', '=', $user->id)->select('books_lend.*', 'books.title', 'books.author')->get(); 
             //$books = BookLend::join('books', 'books_lend.bookid', '=', 'books.id')->where('userid', '=', 1)->select('books_lend.*', 'books.title', 'books.author')->get(); 
 
