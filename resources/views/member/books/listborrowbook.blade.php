@@ -20,7 +20,7 @@
 					<div>Author: {{$result->author}} </div> 
 
 
-					<div>Return: <a href="{{ url('/member/bookborrow/' . $result->id) }}" class="btn btn-primary btn-xs" title="Borrow Book"> Return</a> </div> 
+					<div>Return: <a href="{{ url('/member/bookreturn/' . $result->id) }}" class="btn btn-primary btn-xs" title="Borrow Book"> Return</a> </div> 
 					<div class="clearfix"></div>
 					
 					

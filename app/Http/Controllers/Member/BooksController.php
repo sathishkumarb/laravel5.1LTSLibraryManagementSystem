@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Book;
 use App\BookLend;
+use App\BookFine;
 
 use Illuminate\Http\Request;
 
@@ -127,13 +128,17 @@ class BooksController extends Controller
      *
      * @return void
      */
-    public function listborrowbook(){
+    public function listborrowbook()
+    {
+        //$books = array();
 
-        $user = Auth::user();
+       
+            $user = Auth::user();
+            $books = BookLend::join('books', 'books_lend.bookid', '=', 'books.id')->where('userid', '=', $user->id)->select('books_lend.*', 'books.title', 'books.author')->get(); 
 
-        $books = BookLend::join('books', 'books_lend.bookid', '=', 'books.id')->where('userid', '=', $user->id)->select('books_lend.*', 'books.title', 'books.author')->get(); 
-
-        return view('member.books.listborrowbook')->with('books', $books);                 
+       // }
+        return view('member.books.listborrowbook')->with('books', $books);
+               
     }
 
 
@@ -158,14 +163,13 @@ class BooksController extends Controller
 
         $Book = Book::findOrFail($id);
 
-
         if ( isset($Book->id) && $Book->quantities > 0) {
            
             $bookscount =  Book::searchbookbyid($id);
   
             if ($bookscount === $Book->quantities){
 
-                echo "No stock(s) available";
+                echo "No book stock(s) available";
                 exit;
 
             }
@@ -176,24 +180,19 @@ class BooksController extends Controller
         {
 
             $userbooks = Book::searchbookslendedbyuser($user->id);
+            $flag  = 0;
 
             if ( $user->age <=12 && $userbooks[0]->books_count <=2)
             {
-
-                $now = new DateTime();
-               
-                $request->merge([ 'bookid' => $id ]);
-                $request->merge([ 'userid' => $user->id ]);
-                $request->merge([ 'startdate' => $now ]);
-
-                BookLend::create($request->all());
-
-                Session::flash('flash_message', 'Book Borrowed!');
-
-                return redirect('member/booksearch');
+                 $flag = 1;
             } 
             else if( $user->age > 12 && $userbooks[0]->books_count <=5)
             {
+                $flag = 2;
+            } 
+
+            if ($flag)
+            {
                 $now = new DateTime();
                
                 $request->merge([ 'bookid' => $id ]);
@@ -205,17 +204,93 @@ class BooksController extends Controller
                 Session::flash('flash_message', 'Book Borrowed!');
 
                 return redirect('member/booksearch');
-            } 
+            }
             else
             {
-                echo "Maximum boosk allowed is 6 for elders and 3 for juniors";
+                echo "Maximum books allowed is 6 for elders and 3 for juniors";
                 exit;
             }
             
         }
-      
                
         return view('member.books.borrowbook',compact('Book'));
+    }
 
+    public function bookreturn($id)
+    {
+        $user = Auth::user();
+
+        $Book = Book::findOrFail($id);
+
+        if ( isset($Book->id) && $Book->quantities > 0) 
+        {
+            $mytime = Carbon\Carbon::now(); // today
+
+            $now = new DateTime();
+               
+            $request->merge([ 'bookid' => $id ]);
+            $request->merge([ 'userid' => $user->id ]);
+            $request->merge([ 'returndate' => $now ]);
+
+            $carbondt = new Carbon\Carbon($Book->return_date);
+               
+            echo $carbondt;
+
+            exit;
+
+            if (!empty($Book) && $Book->return_date < $my_time ) {
+
+                $carbondt = new Carbon\Carbon($Book->return_date);
+                $local = $carbon->timezone($localTimeZone);
+               echo $carbondt;
+               exit;
+            }
+            
+
+            BookFine::create($request->all());
+
+            Session::flash('flash_message', 'Book Borrowed!');
+
+            return redirect('member/booksearch');
+            
+        } 
+
+        if (isset($request) && !empty($request->input('returndate')))
+        {
+            $userbooks = Book::searchbookslendedbyuser($user->id);
+            $flag  = 0;
+
+            if ( $user->age <=12 && $userbooks[0]->books_count <=2)
+            {
+                $flag = 1;
+            } 
+            else if( $user->age > 12 && $userbooks[0]->books_count <=5)
+            {
+                $flag = 2;
+            } 
+
+            if ($flag)
+            {
+                $now = new DateTime();
+               
+                $request->merge([ 'bookid' => $id ]);
+                $request->merge([ 'userid' => $user->id ]);
+                $request->merge([ 'startdate' => $now ]);
+
+                BookLend::create($request->all());
+
+                Session::flash('flash_message', 'Book Borrowed!');
+
+                return redirect('member/booksearch');
+            }
+            else
+            {
+                echo "Maximum books allowed is 6 for Elders and 3 for Juniors";
+                exit;
+            }
+            
+        }
+               
+        return view('member.books.borrowbook',compact('Book'));
     }
 }
