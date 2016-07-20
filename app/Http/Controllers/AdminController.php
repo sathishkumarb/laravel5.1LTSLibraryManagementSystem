@@ -26,13 +26,6 @@ class AdminController extends Controller
     }
 
 
-    public function getHome() {
-
-        echo "Admin Logged In<br/>";
-        echo "<a href='".action('Auth\AdminController@getLogout')."'>Logout</a>";
-        dd(\Auth::user('admin'));
-    }
-    
     /**
      * Display a listing of the resource.
      *
@@ -102,6 +95,7 @@ class AdminController extends Controller
      */
     public function getHome()
     {
+       //dd(\Auth::user('admin'));
        return Redirect::to('admin/books'); // redirect the user to the login screen
     }
 

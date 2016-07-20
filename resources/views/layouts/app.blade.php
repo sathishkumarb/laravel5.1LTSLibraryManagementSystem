@@ -60,15 +60,20 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
      
+                         <!-- Authentication Links -->
+                    @if (Auth::guest())
+                        <li><a href="{{ url('/admin/login') }}">Login</a></li>
+                    @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                Welcome Admin <span class="caret"></span>
+                                {{ Auth::user('admin')->name }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/adminauth/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
+                    @endif
                   
                 </ul>
             </div>
