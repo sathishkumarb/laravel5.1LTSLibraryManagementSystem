@@ -115,6 +115,11 @@ class BooksController extends Controller
 
             BookLend::create($request->all());
 
+            $decQuantities = $Book->quantities - 1 ;
+            $Book->quantities = $decQuantities;
+          
+            $Book->save();
+
             Session::flash('flash_message', 'Book Borrowed!');
 
             return redirect('member/booksearch');
@@ -142,6 +147,8 @@ class BooksController extends Controller
 
         $BookLend = BookLend::findOrFail($id);
 
+        $Book = Book::findOrFail($BookLend->bookid);
+
         if ( isset($BookLend->id) ) 
         {
             $mytime = Carbon::now(); // today
@@ -168,6 +175,13 @@ class BooksController extends Controller
             BookFine::create($request->all());
 
             BookLend::destroy($id);
+
+            
+
+            $incQuantities = $Book->quantities + 1;
+            $Book->quantities = $incQuantities;
+          
+            $Book->save();
 
             Session::flash('flash_message', 'Book Borrowed!');
 
