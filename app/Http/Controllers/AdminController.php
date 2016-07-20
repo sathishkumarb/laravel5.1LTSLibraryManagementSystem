@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Book;
+use App\BookLend;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
@@ -18,8 +21,8 @@ class AdminController extends Controller
      */
     public function __construct()
     {
-        $this->user = "admin";
-        $this->middleware('auth');
+       // $this->user = "admin";
+       // $this->middleware('auth');
     }
     
     /**
@@ -29,7 +32,59 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        //$users = User::paginate(15);
+
+        //return view('user.index', compact('users'));
+    }
+
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function users()
+    {
+        if (Auth::check())
+        {
+            $users = User::paginate(15);
+
+            return view('admin.users', compact('users'));
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function books()
+    {
+        //if (Auth::check())
+        {
+            $books = Book::paginate(15);
+
+            return view('admin.books.index', compact('books'));
+        }
+    }
+
+      /**
+     * list the book broorwed.
+     *
+     * @param  request  $request
+     *
+     * @return void
+     */
+    public function listborrowbookadmin()
+    {
+       // if (Auth::check())
+        {
+            //$user = Auth::user();
+            $books = BookLend::join('books', 'books_lend.bookid', '=', 'books.id')->select('books_lend.*', 'books.title', 'books.author', 'books.quantities')->get(); 
+            //$books = BookLend::join('books', 'books_lend.bookid', '=', 'books.id')->where('userid', '=', 1)->select('books_lend.*', 'books.title', 'books.author')->get(); 
+
+        }
+        return view('admin.books.listborrowbookall')->with('books', $books);
     }
 
     /**
@@ -39,7 +94,7 @@ class AdminController extends Controller
      */
     public function getHome()
     {
-       return Redirect::to('member/books'); // redirect the user to the login screen
+       return Redirect::to('admin/books'); // redirect the user to the login screen
     }
 
     /**
@@ -107,4 +162,6 @@ class AdminController extends Controller
     {
         //
     }
+
+
 }

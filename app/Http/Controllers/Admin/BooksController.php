@@ -1,19 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
+use App\Book;
+use App\BookLend;
+use App\BookFine;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
-use App\Http\Controllers\Controller;
-
-use App\User;
-
 use Carbon\Carbon;
 use Session;
+use Auth;
+use DateTime;
 
-class UserController extends Controller
+
+
+class BooksController extends Controller
 {
     /**
      * Create a new authentication controller instance.
@@ -22,8 +27,8 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        //$this->user = "admin";
-       // $this->middleware('auth');
+        $this->user = "admin";
+        $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -32,7 +37,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        
+        //$books = Book::paginate(15);
+
+        //return view('member.books.index', compact('books'));
     }
 
     /**
@@ -42,7 +49,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+        return view('admin.books.create');
     }
 
     /**
@@ -52,17 +59,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['name' => 'required', 'email' => 'required', 'password' => 'required', ]);
+        $this->validate($request, ['title' => 'required', 'author' => 'required', 'isbn' => 'required', 'shelflocation' => 'required', ]);
 
-		$hashedpassword = \Hash::make($request->password);
-		
-		$request->merge([ 'password' => $hashedpassword ]);
-		
-        User::create($request->all());
+        Book::create($request->all());
 
-        Session::flash('flash_message', 'User added!');
+        Session::flash('flash_message', 'Book added!');
 
-        return redirect('users');
+        return redirect('admin/books');
     }
 
     /**
@@ -74,9 +77,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $User = User::findOrFail($id);
+        $book = Book::findOrFail($id);
 
-        return view('user.show', compact('User'));
+        return view('admin.books.show', compact('book'));
     }
 
     /**
@@ -88,9 +91,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $User = User::findOrFail($id);
+        $Book = Book::findOrFail($id);
 
-        return view('user.edit', compact('User'));
+        return view('admin.books.edit', compact('Book'));
     }
 
     /**
@@ -102,14 +105,14 @@ class UserController extends Controller
      */
     public function update($id, Request $request)
     {
-        $this->validate($request, ['name' => 'required', 'email' => 'required', 'password' => 'required', 'password_confirmation' => 'required', ]);
+        $this->validate($request, ['title' => 'required', 'author' => 'required', 'isbn' => 'required', 'shelflocation' => 'required', ]);
 
-        $User = User::findOrFail($id);
-        $User->update($request->all());
+        $Book = Book::findOrFail($id);
+        $Book->update($request->all());
 
-        Session::flash('flash_message', 'User updated!');
+        Session::flash('flash_message', 'Book updated!');
 
-        return redirect('user');
+        return redirect('admin/books');
     }
 
     /**
@@ -121,11 +124,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
+        Book::destroy($id);
 
-        Session::flash('flash_message', 'user deleted!');
+        Session::flash('flash_message', 'Book deleted!');
 
-        return redirect('user');
+        return redirect('admin/books');
     }
-	
+
+    
 }

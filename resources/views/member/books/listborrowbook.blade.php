@@ -8,7 +8,7 @@
 	
 		<div class="clearfix"></div>
 		<div class="col-md-12">
-			<h3 style="padding-bottom:25px;">Our Books</h3>
+			<h3 style="padding-bottom:25px;">My Loaned Books</h3>
 			<div class="pricing-grids" id="book_list">
 				@foreach($books as $index =>$result)
 				<div class="pricing-grid col-lg-3 col-md-3 col-sm-6 col-xs-12">							
@@ -22,7 +22,7 @@
 
 					<div>Return: <a href="{{ url('/member/bookreturn/' . $result->id) }}" class="btn btn-primary btn-xs" title="Borrow Book"> Return</a> </div> 
 					<div class="clearfix"></div>
-					
+			
 					
 				</div>
 				@endforeach

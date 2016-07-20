@@ -15,14 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('member/books', 'Member\\BooksController');
+
 Route::resource('member/booksearch', 'Member\\BooksController@searchbook');
 Route::resource('member/listborrowbook', 'Member\\BooksController@listborrowbook');
-
 Route::resource('member/bookborrow', 'Member\\BooksController@bookborrow');
 Route::resource('member/bookreturn', 'Member\\BooksController@bookreturn');
 
-Route::resource('users', 'UserController');
+Route::resource('admin/users', 'AdminController@users');
+Route::resource('admin/books', 'AdminController@books');
+Route::resource('admin/listborrowbookadmin', 'AdminController@listborrowbookadmin');
 
 
 // Users route

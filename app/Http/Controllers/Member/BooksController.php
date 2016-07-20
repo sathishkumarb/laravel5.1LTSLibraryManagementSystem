@@ -20,119 +20,10 @@ use DateTime;
 
 class BooksController extends Controller
 {
-    /**
-     * Create a new authentication controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->user = "admin";
-        $this->middleware('auth');
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return void
-     */
-    public function index()
-    {
-        $books = Book::paginate(15);
-
-        return view('member.books.index', compact('books'));
-    }
+    
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return void
-     */
-    public function create()
-    {
-        return view('member.books.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return void
-     */
-    public function store(Request $request)
-    {
-        $this->validate($request, ['title' => 'required', 'author' => 'required', 'isbn' => 'required', 'shelflocation' => 'required', ]);
-
-        Book::create($request->all());
-
-        Session::flash('flash_message', 'Book added!');
-
-        return redirect('member/books');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return void
-     */
-    public function show($id)
-    {
-        $book = Book::findOrFail($id);
-
-        return view('member.books.show', compact('book'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return void
-     */
-    public function edit($id)
-    {
-        $Book = Book::findOrFail($id);
-
-        return view('member.books.edit', compact('Book'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     *
-     * @return void
-     */
-    public function update($id, Request $request)
-    {
-        $this->validate($request, ['title' => 'required', 'author' => 'required', 'isbn' => 'required', 'shelflocation' => 'required', ]);
-
-        $Book = Book::findOrFail($id);
-        $Book->update($request->all());
-
-        Session::flash('flash_message', 'Book updated!');
-
-        return redirect('member/books');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     *
-     * @return void
-     */
-    public function destroy($id)
-    {
-        Book::destroy($id);
-
-        Session::flash('flash_message', 'Book deleted!');
-
-        return redirect('member/books');
-    }
-
-    /**
-     * Search the book bon on keyword.
+     * list the book broorwed.
      *
      * @param  request  $request
      *
@@ -140,22 +31,19 @@ class BooksController extends Controller
      */
     public function listborrowbook()
     {
-        //$books = array();
-
         if (Auth::check())
         {
             $user = Auth::user();
             $books = BookLend::join('books', 'books_lend.bookid', '=', 'books.id')->where('userid', '=', $user->id)->select('books_lend.*', 'books.title', 'books.author')->get(); 
             //$books = BookLend::join('books', 'books_lend.bookid', '=', 'books.id')->where('userid', '=', 1)->select('books_lend.*', 'books.title', 'books.author')->get(); 
 
-       }
+        }
         return view('member.books.listborrowbook')->with('books', $books);
-               
     }
 
-
+  
     /**
-     * Search the book bon on keyword.
+     * Search the book upon keyword.
      *
      * @param  request  $request
      *
@@ -227,6 +115,7 @@ class BooksController extends Controller
             echo "Maximum books allowed is 6 for elders and 3 for juniors";
             exit;
         }
+        return;
                     
     }
 
@@ -277,6 +166,6 @@ class BooksController extends Controller
             
         } 
      
-        //return view('member.books.borrowbook',compact('Book'));
+        return;
     }
 }
