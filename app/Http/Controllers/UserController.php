@@ -22,8 +22,8 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        //$this->user = "admin";
-       // $this->middleware('auth');
+        // $this->user = "user";
+        // $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.

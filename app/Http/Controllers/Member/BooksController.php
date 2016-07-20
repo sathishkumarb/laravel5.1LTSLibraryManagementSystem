@@ -21,7 +21,16 @@ use DateTime;
 class BooksController extends Controller
 {
     
-
+     /**
+     * Create a new authentication controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->user = "user";
+        $this->middleware('auth');
+    }
     /**
      * list the book broorwed.
      *

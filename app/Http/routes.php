@@ -21,8 +21,8 @@ Route::resource('member/listborrowbook', 'Member\\BooksController@listborrowbook
 Route::resource('member/bookborrow', 'Member\\BooksController@bookborrow');
 Route::resource('member/bookreturn', 'Member\\BooksController@bookreturn');
 
-Route::resource('admin/users', 'AdminController@users');
-Route::resource('admin/books', 'AdminController@books');
+Route::resource('admin/users', 'Admin\\UserController');
+Route::resource('admin/books', 'Admin\\BooksController');
 Route::resource('admin/listborrowbookadmin', 'AdminController@listborrowbookadmin');
 
 

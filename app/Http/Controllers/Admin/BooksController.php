@@ -17,7 +17,6 @@ use Auth;
 use DateTime;
 
 
-
 class BooksController extends Controller
 {
     /**
@@ -28,7 +27,7 @@ class BooksController extends Controller
     public function __construct()
     {
         $this->user = "admin";
-        $this->middleware('auth');
+        $this->middleware('admin');
     }
     /**
      * Display a listing of the resource.
@@ -37,9 +36,9 @@ class BooksController extends Controller
      */
     public function index()
     {
-        //$books = Book::paginate(15);
+        $books = Book::paginate(15);
 
-        //return view('member.books.index', compact('books'));
+        return view('admin.books.index', compact('books'));
     }
 
     /**

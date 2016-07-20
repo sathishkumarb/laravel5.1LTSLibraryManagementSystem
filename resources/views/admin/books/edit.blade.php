@@ -7,7 +7,7 @@
 
     {!! Form::model($Book, [
         'method' => 'PATCH',
-        'url' => ['/member/books', $Book->id],
+        'url' => ['/admin/books', $Book->id],
         'class' => 'form-horizontal'
     ]) !!}
 
@@ -28,14 +28,14 @@
             <div class="form-group {{ $errors->has('isbn') ? 'has-error' : ''}}">
                 {!! Form::label('isbn', 'Isbn', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::textarea('isbn', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    {!! Form::text('isbn', null, ['class' => 'form-control', 'required' => 'required']) !!}
                     {!! $errors->first('isbn', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('quantities') ? 'has-error' : ''}}">
                 {!! Form::label('quantities', 'Quantities', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::textarea('quantities', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    {!! Form::text('quantities', null, ['class' => 'form-control', 'required' => 'required']) !!}
                     {!! $errors->first('quantities', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
