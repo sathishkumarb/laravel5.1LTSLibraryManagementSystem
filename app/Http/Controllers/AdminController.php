@@ -21,8 +21,16 @@ class AdminController extends Controller
      */
     public function __construct()
     {
-       // $this->user = "admin";
-       // $this->middleware('admin');
+        $this->user = "admin";
+        $this->middleware('admin');
+    }
+
+
+    public function getHome() {
+
+        echo "Admin Logged In<br/>";
+        echo "<a href='".action('Auth\AdminController@getLogout')."'>Logout</a>";
+        dd(\Auth::user('admin'));
     }
     
     /**

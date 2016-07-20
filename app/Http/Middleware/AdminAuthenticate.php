@@ -1,18 +1,20 @@
 <?php
-
+ 
 namespace App\Http\Middleware;
-
+ 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
-
+ 
 class AdminAuthenticate
 {
-    /**
+   
+   /**
      * The Guard implementation.
      *
      * @var Guard
      */
     protected $auth;
+
     /**
      * Create a new filter instance.
      *
@@ -23,6 +25,8 @@ class AdminAuthenticate
     {
         $this->auth = $auth->with('admin');
     }
+
+
     /**
      * Handle an incoming request.
      *

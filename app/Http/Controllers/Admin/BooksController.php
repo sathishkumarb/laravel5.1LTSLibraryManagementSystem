@@ -29,6 +29,7 @@ class BooksController extends Controller
         $this->user = "admin";
         $this->middleware('admin');
     }
+
     /**
      * Display a listing of the resource.
      *
