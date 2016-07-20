@@ -79,15 +79,22 @@ class BooksController extends Controller
 
         $Book = Book::findOrFail($id);
 
-        if ( isset($Book->id) && $Book->quantities > 0) {
+        if ( isset($Book->id) ) {
+
+            if ($Book->quantities > 0)  {
            
-            $bookscount =  Book::searchbookbyid($id);
-  
-            if ($bookscount === $Book->quantities){
+                $bookscount =  Book::searchbookbyid($id);
+      
+                if ($bookscount === $Book->quantities ){
 
-                echo "No book stock(s) available";
+                    echo "No book stock(s) available". "<a href='/member/booksearch'> Go back book search</a>";
+                    exit;
+
+                }
+            }
+            else{
+                echo "No book stock(s) available". "<a href='/member/booksearch'> Go back book search</a>";
                 exit;
-
             }
             
         } 
@@ -126,7 +133,7 @@ class BooksController extends Controller
         }
         else
         {
-            echo "Maximum books allowed is 6 for elders and 3 for juniors";
+            echo "Maximum books allowed is 6 for elders and 3 for juniors". "<a href='/member/booksearch'> Go back book search</a>";
             exit;
         }
         return;
